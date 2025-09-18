@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تهران دیجی مارکت</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; margin: 0; padding: 0; background: #f4f4f4; direction: rtl; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
+    .product-card { background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.2s; }
+    .product-card:hover { transform: scale(1.03); }
+    .product-card img { width: 100%; height: 200px; object-fit: cover; }
+    .info { padding: 15px; }
+    .info h3 { margin: 0 0 10px; font-size: 18px; }
+    .discount { background: #ff4757; color: white; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 5px; font-size: 14px; }
+    .buy-btn { display: block; margin-top: 15px; text-align: center; background: #28a745; color: white; padding: 10px; border-radius: 5px; text-decoration: none; }
+    .tag { background:#ddd; padding:5px 10px; margin:5px; border-radius:5px; display:inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎉 محصولات تهران دیجی مارکت 🎉</h1>
+    <nav>
+      <a href="#products">محصولات</a>
+      <a href="#tags">تگ‌ها</a>
+      <a href="#contact">تماس با ما</a>
+    </nav>
+  </header>
+
+  <section id="products">
+    <h2 style="text-align:center; margin:20px 0;">📦 جدیدترین محصولات</h2>
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <section id="tags" style="padding:20px;">
+    <h2>🏷️ تگ‌ها</h2>
+    <div id="tagsContainer"></div>
+  </section>
+
+  <section id="contact" style="padding:20px; background:#eee;">
+    <h2>📞 تماس با ما</h2>
+    <p>ایمیل: info@tehrandigimarket.ir</p>
+    <p>تلفن: 021-xxxxxxx</p>
+  </section>
+
+  <script>
+    // داده‌های محصولات با لینک HTTP
+    const products = [
+      {
+        name: 'قوزبند طبی طرح ضربدری',
+        price: '۴۹۸,۰۰۰ تومان',
+        originalPrice: '۶۰۰,۰۰۰ تومان',
+        discount: '17%',
+        category: 'health',
+        image: 'https://tehrandigimarket.ir/images/product/736.jpg',
+        link: 'http://www.tehrandigimarket.ir/product.php?id=736'
+      },
+      {
+        name: 'چراغ LED ریموت دار ضد آب',
+        price: '۲۹۸,۰۰۰ تومان',
+        originalPrice: '۳۵۰,۰۰۰ تومان',
+        discount: '15%',
+        category: 'home',
+        image: 'https://tehrandigimarket.ir/images/product/735.jpg',
+        link: 'http://www.tehrandigimarket.ir/product.php?id=735'
+      },
+      {
+        name: 'سرشیر ظرفشویی فنری Spring',
+        price: '۲۹۸,۰۰۰ تومان',
+        originalPrice: '۳۵۰,۰۰۰ تومان',
+        discount: '15%',
+        category: 'kitchen',
+        image: 'https://tehrandigimarket.ir/images/product/734.jpg',
+        link: 'http://www.tehrandigimarket.ir/product.php?id=734'
+      },
+      {
+        name: 'هولدر مگنتی',
+        price: '۱۵۰,۰۰۰ تومان',
+        originalPrice: '۲۰۰,۰۰۰ تومان',
+        discount: '25%',
+        category: 'accessory',
+        image: 'https://tehrandigimarket.ir/images/product/733.jpg',
+        link: 'http://www.tehrandigimarket.ir/product.php?id=733'
+      }
+    ];
+
+    function displayProducts(products) {
+      const grid = document.getElementById("productsGrid");
+      grid.innerHTML = "";
+      products.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <div class="info">
+            <h3>${p.name}</h3>
+            <p><b>${p.price}</b> <span style="text-decoration: line-through; color: #999;">${p.originalPrice}</span></p>
+            <div class="discount">${p.discount || "بدون تخفیف"}</div>
+            <a href="${p.link}" target="_blank" class="buy-btn">خرید از تهران دیجی مارکت</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function displayTags(products) {
+      const tagsContainer = document.getElementById("tagsContainer");
+      const uniqueTags = [...new Set(products.map(p => p.category))];
+      tagsContainer.innerHTML = uniqueTags.map(tag => `<span class="tag">${tag}</span>`).join("");
+    }
+
+    displayProducts(products);
+    displayTags(products);
+  </script>
+</body>
+</html>
